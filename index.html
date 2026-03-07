@@ -485,6 +485,30 @@
             font-weight: 700;
         }
 
+        /* 视频容器 */
+        .video-container {
+            margin-top: 1.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-label {
+            padding: 0.75rem 1rem;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-align: center;
+        }
+
         /* 技能区域 */
         .skills-section {
             background: var(--bg-card);
@@ -851,6 +875,13 @@
                     <li>减少人工干预 80%</li>
                     <li>响应时间从分钟级优化至秒级</li>
                 </ul>
+                <div class="video-container">
+                    <video controls preload="metadata">
+                        <source src="https://information-extraction-test-yao.oss-cn-beijing.aliyuncs.com/videos/jixiaoyu-demo.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                    <div class="video-label">🎬 极小羽智能体平台演示视频</div>
+                </div>
             </div>
 
             <!-- 项目三 -->
@@ -871,6 +902,13 @@
                     <li>支持 10+ 租户同时使用，可用性 99.9%</li>
                     <li>API 响应时间优化至 200ms 以内</li>
                 </ul>
+                <div class="video-container">
+                    <video controls preload="metadata">
+                        <source src="https://information-extraction-test-yao.oss-cn-beijing.aliyuncs.com/videos/danzheng-shibie.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放
+                    </video>
+                    <div class="video-label">🎬 AI 单证识别系统演示视频</div>
+                </div>
             </div>
         </div>
 
