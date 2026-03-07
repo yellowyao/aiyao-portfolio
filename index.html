@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIYao - 全栈开发/AI 智能体开发专家</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --accent: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #0ea5e9 100%);
+            --gradient-2: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .contact-item span {
+            font-size: 1.25rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* 通用区域样式 */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 工作经历 */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--gradient-1);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(even) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 3rem;
+            margin-left: 50%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: -8px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: auto;
+            left: -8px;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            max-width: 450px;
+        }
+
+        .timeline-content:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* 项目卡片 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:nth-child(2)::before {
+            background: var(--gradient-2);
+        }
+
+        .project-card:nth-child(3)::before {
+            background: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+        }
+
+        .project-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-role {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-achievements {
+            list-style: none;
+        }
+
+        .project-achievements li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .project-achievements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* 技能区域 */
+        .skills-section {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 4rem;
+            margin-top: 2rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-dark);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-category h3 span {
+            font-size: 1.5rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-list li::before {
+            content: '▹';
+            color: var(--primary);
+        }
+
+        /* 技术亮点 */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .highlight-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .highlight-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* 统计数据 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* 教育背景 */
+        .education-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .education-school {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-degree {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .education-year {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-card);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                margin-left: 0;
+                padding-left: 50px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+
+            .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 12px;
+                right: auto;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                max-width: none;
+            }
+
+            .hero-contact {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-section {
+                padding: 2rem;
+            }
+        }
+
+        /* 滚动动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">AIYao</div>
+            <ul class="nav-links">
+                <li><a href="#about">关于</a></li>
+                <li><a href="#experience">经历</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#skills">技能</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 5 年全栈开发经验</div>
+            <h1>
+                你好，我是<br>
+                <span class="gradient-text">黄文耀 (AIYao)</span>
+            </h1>
+            <p>全栈开发专家 / AI 智能体开发者 / 自动化系统架构师</p>
+            
+            <div class="hero-contact">
+                <div class="contact-item">
+                    <span>📱</span> 19175040822
+                </div>
+                <div class="contact-item">
+                    <span>📧</span> 369770384@qq.com
+                </div>
+                <div class="contact-item">
+                    <span>📍</span> 上海
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">查看项目</a>
+                <a href="#contact" class="btn btn-secondary">联系我</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section class="section" id="experience">
+        <div class="section-header fade-in">
+            <h2>工作经历</h2>
+            <p>专注于 Python 后端开发和 AI 智能体应用落地</p>
+        </div>
+        
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2024.03 - 至今</div>
+                    <h3 class="timeline-title">高级 Python 工程师</h3>
+                    <p class="timeline-company">上海极羽科技有限公司</p>
+                    <p style="color: var(--text-secondary);">负责公司核心业务系统架构设计和开发，主导 Hand 助手、极小羽智能体、AI 单证识别等多个核心项目，支撑日均百万级请求处理。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目经验 -->
+    <section class="section" id="projects">
+        <div class="section-header fade-in">
+            <h2>项目经验</h2>
+            <p>从 0 到 1 打造的核心项目</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- 项目一 -->
+            <div class="project-card fade-in">
+                <div class="project-number">01</div>
+                <h3 class="project-title">Hand 助手</h3>
+                <p class="project-role">后端负责人 | 2024.06 - 至今</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python 3.6</span>
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">RabbitMQ</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">MongoDB</span>
+                </div>
+                <p class="project-description">整合 10+ 船司 API 的货代查询平台，实现订舱、截单、运价查询全链路自动化。覆盖 Maersk、HPL、COSCO、OOCL、EMC、CMA、MSC 等主流船司。</p>
+                <ul class="project-achievements">
+                    <li>日均处理查询任务 1000+，订舱任务 200+</li>
+                    <li>系统可用性 99.5%，错误率从 5% 降至 0.5%</li>
+                    <li>新船司接入效率提升 60%，从 2 周缩短至 3 天</li>
+                    <li>重试成功率提升至 95%</li>
+                </ul>
+            </div>
+
+            <!-- 项目二 -->
+            <div class="project-card fade-in">
+                <div class="project-number">02</div>
+                <h3 class="project-title">极小羽智能体平台</h3>
+                <p class="project-role">技术负责人 | 2025.03 - 至今</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">LangGraph</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">Azure OpenAI</span>
+                </div>
+                <p class="project-description">基于 LangGraph 的多智能体协作系统，实现海运费、拖车费查询及报价单生成的自动化闭环。</p>
+                <ul class="project-achievements">
+                    <li>日均处理查询任务 500+，准确率 98%</li>
+                    <li>减少人工干预 80%</li>
+                    <li>响应时间从分钟级优化至秒级</li>
+                </ul>
+            </div>
+
+            <!-- 项目三 -->
+            <div class="project-card fade-in">
+                <div class="project-number">03</div>
+                <h3 class="project-title">AI 单证识别系统</h3>
+                <p class="project-role">核心开发者 | 2025.08 - 至今</p>
+                <div class="project-tech">
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">Azure OCR</span>
+                    <span class="tech-tag">LangChain</span>
+                    <span class="tech-tag">Spring Boot</span>
+                </div>
+                <p class="project-description">基于 OCR 和大语言模型的智能单证识别系统，处理海运提单、商业发票等 8 种文档类型，实现自动化数据提取和校验。</p>
+                <ul class="project-achievements">
+                    <li>核心字段识别准确率 95%+</li>
+                    <li>单证录入效率提升 10 倍</li>
+                    <li>支持 10+ 租户同时使用，可用性 99.9%</li>
+                    <li>API 响应时间优化至 200ms 以内</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 统计数据 -->
+        <div class="stats-grid fade-in">
+            <div class="stat-card">
+                <div class="stat-number">1000+</div>
+                <div class="stat-label">日均查询任务</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">99.9%</div>
+                <div class="stat-label">系统可用性</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10 倍</div>
+                <div class="stat-label">效率提升</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">80%</div>
+                <div class="stat-label">人工干预减少</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能专长 -->
+    <section class="section" id="skills">
+        <div class="section-header fade-in">
+            <h2>技能专长</h2>
+            <p>全面的技术栈，专注于后端与 AI</p>
+        </div>
+
+        <div class="skills-section fade-in">
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><span>💻</span> 编程语言</h3>
+                    <ul class="skill-list">
+                        <li>Python (精通) - 5 年后端开发</li>
+                        <li>Java (熟练) - Spring 全家桶</li>
+                        <li>JavaScript/TypeScript (熟练)</li>
+                        <li>SQL (精通) - 复杂查询优化</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3><span>⚙️</span> 后端开发</h3>
+                    <ul class="skill-list">
+                        <li>FastAPI, Flask, Spring Boot</li>
+                        <li>Asyncio, Redis, RabbitMQ</li>
+                        <li>RESTful API, OpenAPI 规范</li>
+                        <li>微服务架构，多租户系统</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3><span>🤖</span> AI/ML 技术</h3>
+                    <ul class="skill-list">
+                        <li>LangChain, LangGraph</li>
+                        <li>Azure OpenAI, Prompt Engineering</li>
+                        <li>Azure OCR, PaddleOCR</li>
+                        <li>多智能体协作系统</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3><span>🗄️</span> 数据库与存储</h3>
+                    <ul class="skill-list">
+                        <li>MySQL, PostgreSQL</li>
+                        <li>MongoDB, Redis</li>
+                        <li>RabbitMQ (pika)</li>
+                        <li>OpenPyXL (Excel 自动化)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术亮点 -->
+    <section class="section">
+        <div class="section-header fade-in">
+            <h2>技术亮点</h2>
+            <p>解决复杂问题的核心能力</p>
+        </div>
+
+        <div class="highlights-grid">
+            <div class="highlight-card fade-in">
+                <div class="highlight-icon">🏗️</div>
+                <h3>复杂系统架构</h3>
+                <p>设计并实现基于 LangGraph 的多智能体协作系统，构建支持热更新的模块化服务架构，实现多租户并发控制与资源隔离机制。</p>
+            </div>
+
+            <div class="highlight-card fade-in">
+                <div class="highlight-icon">🧠</div>
+                <h3>AI 技术深度应用</h3>
+                <p>融合传统 OCR 与大模型技术，实现 95%+ 的文档识别准确率。构建动态提示词机制，实现 LLM 全链路监控与优化。</p>
+            </div>
+
+            <div class="highlight-card fade-in">
+                <div class="highlight-icon">⚡</div>
+                <h3>系统工程与稳定性</h3>
+                <p>建立完善的错误追踪与重试机制，实现 99.9% 的服务可用性。构建实时告警与监控体系，快速响应和处理系统异常。</p>
+            </div>
+
+            <div class="highlight-card fade-in">
+                <div class="highlight-icon">📈</div>
+                <h3>业务价值创造</h3>
+                <p>单证录入效率提升 10 倍，新船司接入效率提升 60%。自动化闭环减少人工干预 80%，支持日均处理任务 10000+。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section class="section">
+        <div class="section-header fade-in">
+            <h2>教育背景</h2>
+        </div>
+
+        <div class="education-card fade-in">
+            <h3 class="education-school">上海电力大学</h3>
+            <p class="education-degree">本科 | 软件工程</p>
+            <p class="education-year">2020.09 - 2024.06</p>
+            <p style="color: var(--text-secondary);">英语水平：CET-4</p>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <h2>期待与你合作</h2>
+            <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                寻求在 AI 智能体开发、全栈开发或自动化系统领域的技术岗位，期望在技术创新和业务价值创造方面做出贡献。
+            </p>
+
+            <div class="footer-contact">
+                <a href="tel:19175040822" class="footer-link">
+                    <span>📱</span> 19175040822
+                </a>
+                <a href="mailto:369770384@qq.com" class="footer-link">
+                    <span>📧</span> 369770384@qq.com
+                </a>
+                <div class="footer-link">
+                    <span>📍</span> 上海
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 黄文耀 (AIYao). All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.875rem;">最后更新：2026 年 3 月 7 日</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.8)';
+            }
+        });
+    </script>
+</body>
+</html>
