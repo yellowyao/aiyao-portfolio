@@ -1890,3 +1890,106 @@
     </script>
 </body>
 </html>
+
+<!-- Bento Grid Layout Optimization -->
+<style>
+/* Bento Grid System - UI/UX Pro Max */
+.bento-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.bento-card-v2 {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  padding: 32px;
+  transition: all 0.3s var(--ease-out);
+}
+
+.bento-card-v2:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow: var(--shadow-lg);
+}
+
+.bento-col-3 { grid-column: span 3; }
+.bento-col-4 { grid-column: span 4; }
+.bento-col-6 { grid-column: span 6; }
+.bento-col-8 { grid-column: span 8; }
+.bento-col-12 { grid-column: span 12; }
+
+@media (max-width: 1024px) {
+  .bento-col-3, .bento-col-4 { grid-column: span 6; }
+  .bento-col-6, .bento-col-8 { grid-column: span 12; }
+}
+
+@media (max-width: 768px) {
+  .bento-col-3, .bento-col-4, .bento-col-6, .bento-col-8 {
+    grid-column: span 12;
+  }
+}
+
+/* Section spacing optimization */
+.section-bento {
+  padding: 96px 0;
+}
+
+.section-header-bento {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-header-bento h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Content cards unified style */
+.content-card {
+  background: var(--bg-card);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.content-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.content-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Grid layouts for rich content */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
