@@ -513,6 +513,153 @@
             background: var(--bg-tertiary);
         }
 
+        /* Image Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-6);
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            background: var(--bg-card);
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            border-radius: var(--radius-lg);
+        }
+
+        .gallery-caption {
+            padding: var(--space-3) var(--space-4);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-light);
+        }
+
+        .gallery-caption h4 {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .gallery-caption p {
+            font-size: var(--text-xs);
+            color: var(--text-tertiary);
+            line-height: 1.5;
+        }
+
+        .gallery-badge {
+            position: absolute;
+            top: var(--space-3);
+            right: var(--space-3);
+            padding: var(--space-1) var(--space-3);
+            background: var(--accent);
+            color: white;
+            font-size: var(--text-xs);
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            z-index: 1;
+        }
+
+        /* Lightbox */
+        .gallery-item img {
+            cursor: zoom-in;
+        }
+
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-8);
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            cursor: zoom-out;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-6);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: var(--text-2xl);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: var(--text-2xl);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .lightbox-prev {
+            left: var(--space-6);
+        }
+
+        .lightbox-next {
+            right: var(--space-6);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         /* Stats Grid */
         .stats-grid {
             display: grid;
@@ -743,6 +890,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
             .skills-grid {
                 grid-template-columns: 1fr;
             }
@@ -958,6 +1109,43 @@
         </div>
     </section>
 
+    <!-- Project Screenshots Section -->
+    <section class="section section-alt" id="screenshots">
+        <div class="section-header fade-in">
+            <h2>项目截图</h2>
+            <p>极小羽智能体平台 — 海运运价查询与报价单生成实战界面</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <span class="gallery-badge">最新</span>
+                <img src="static/微信图片_20260512184438_74_93.png" alt="智能体对话界面" loading="lazy">
+                <div class="gallery-caption">
+                    <h4>自然语言查询运价</h4>
+                    <p>通过对话式交互描述起运港、目的港、箱型等信息，智能体自动匹配最佳航线方案。</p>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in">
+                <span class="gallery-badge">最新</span>
+                <img src="static/微信图片_20260512184447_75_93.png" alt="费用明细面板" loading="lazy">
+                <div class="gallery-caption">
+                    <h4>费用明细一目了然</h4>
+                    <p>海运费、本地费用分项展示，支持 Ocean Freight 与 Local Charges 清晰区分。</p>
+                </div>
+            </div>
+
+            <div class="gallery-item fade-in">
+                <span class="gallery-badge">最新</span>
+                <img src="static/微信图片_20260512184459_76_93.png" alt="本地费用详细列表" loading="lazy">
+                <div class="gallery-caption">
+                    <h4>本地费用逐项拆解</h4>
+                    <p>THC、文件费、VGM、封条费等各项本地费用明细列示，报价透明可追溯。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Skills Section -->
     <section class="section" id="skills">
         <div class="section-header fade-in">
@@ -1125,6 +1313,60 @@
                 navbar.style.boxShadow = 'none';
             }
         });
+    </script>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="lightbox">
+        <button class="lightbox-close" aria-label="关闭">&times;</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="上一张">&#8249;</button>
+        <img src="" alt="" id="lightbox-img">
+        <button class="lightbox-nav lightbox-next" aria-label="下一张">&#8250;</button>
+    </div>
+
+    <script>
+        // Lightbox
+        (function() {
+            var overlay = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightbox-img');
+            var items = document.querySelectorAll('.gallery-item img');
+            var currentIndex = 0;
+
+            function openLightbox(index) {
+                currentIndex = index;
+                lightboxImg.src = items[index].src;
+                lightboxImg.alt = items[index].alt;
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function navigate(dir) {
+                currentIndex = (currentIndex + dir + items.length) % items.length;
+                lightboxImg.src = items[currentIndex].src;
+                lightboxImg.alt = items[currentIndex].alt;
+            }
+
+            items.forEach(function(img, i) {
+                img.addEventListener('click', function() { openLightbox(i); });
+            });
+
+            overlay.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+            overlay.querySelector('.lightbox-prev').addEventListener('click', function() { navigate(-1); });
+            overlay.querySelector('.lightbox-next').addEventListener('click', function() { navigate(1); });
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeLightbox();
+            });
+            document.addEventListener('keydown', function(e) {
+                if (!overlay.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigate(-1);
+                if (e.key === 'ArrowRight') navigate(1);
+            });
+        })();
     </script>
 </body>
 </html>
